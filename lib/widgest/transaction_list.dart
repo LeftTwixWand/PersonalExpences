@@ -21,11 +21,11 @@ class TransactionList extends StatelessWidget {
                     border: Border.all(color: Colors.purple, width: 2),
                   ),
                   child: Text(
-                    '\$${transactions[index].amount}',
+                    '\$${transactions[index].amount.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.purple,
+                      color: Colors.amber,
                     ),
                   ),
                 ),
