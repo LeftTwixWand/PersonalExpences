@@ -10,7 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App1',
+      title: 'Personal Expences',
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+      ),
       home: MyHomePage(),
     );
   }
@@ -44,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Flutter app'),
+          title: Text('Personal Expences'),
           actions: <Widget>[
             IconButton(
                 onPressed: () => _startAddNewTransaction(context),
@@ -67,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.access_alarm),
+          child: Icon(Icons.add),
           onPressed: () => _startAddNewTransaction(context),
         ),
       );

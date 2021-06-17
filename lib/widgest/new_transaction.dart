@@ -21,6 +21,8 @@ class _NewTransactionState extends State<NewTransaction> {
     if (enteredTitle.isEmpty || enteredAmount <= 0) return;
 
     widget.addTransactionCallback(enteredTitle, enteredAmount);
+
+    Navigator.of(context).pop();
   }
 
   @override
