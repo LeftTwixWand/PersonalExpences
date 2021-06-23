@@ -13,24 +13,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expences',
       theme: ThemeData(
-          primarySwatch: Colors.purple,
-          accentColor: Colors.amber,
-          fontFamily: 'Quicksand',
-          textTheme: TextTheme(
-            headline1: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+        errorColor: Colors.red,
+        fontFamily: 'Quicksand',
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
-          appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                  headline6: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+        ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-          )),
+              ),
+        ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -62,6 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((element) => element.id == id);
+    });
+  }
+
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx, builder: (_) => NewTransaction(_addNewTransaction));
@@ -82,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Chart(_recentTransactions),
-                TransactionList(_userTransactions),
+                TransactionList(_userTransactions, _deleteTransaction),
               ]),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
