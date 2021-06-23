@@ -52,9 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
           item.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
       .toList();
 
-  void _addNewTransaction(String transactionTitle, double transactionAmount) {
-    final newTransaction = Transaction(DateTime.now().toString(),
-        transactionTitle, transactionAmount, DateTime.now());
+  void _addNewTransaction(
+      String transactionTitle, double transactionAmount, DateTime date) {
+    final newTransaction = Transaction(
+        DateTime.now().toString(), transactionTitle, transactionAmount, date);
 
     setState(() {
       _userTransactions.add(newTransaction);
