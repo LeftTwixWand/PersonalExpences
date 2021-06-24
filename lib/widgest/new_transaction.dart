@@ -70,7 +70,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     Expanded(
                       child: Text(_selectedDate.isAtSameMomentAs(DateTime(2019))
                           ? 'No Date Chosen!'
-                          : 'Piched Date: ${DateFormat.yMd().format(_selectedDate)}'),
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
                     ),
                     OutlinedButton(
                       onPressed: _persentDatePicker,
