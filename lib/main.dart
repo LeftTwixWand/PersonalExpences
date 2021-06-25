@@ -54,6 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
           item.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
       .toList();
 
+  bool _showChart = false;
+
   void _addNewTransaction(
       String transactionTitle, double transactionAmount, DateTime date) {
     final newTransaction = Transaction(
@@ -85,6 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.add)),
       ],
     );
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final transactionsList = Container(
+        height: (MediaQuery.of(context).size.height -
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) *
+            0.7,
+        child: TransactionList(_userTransactions, _deleteTransaction));
 
     return Scaffold(
       appBar: appBar,
@@ -92,19 +103,37 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.3,
-                  child: Chart(_recentTransactions)),
-              Container(
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.7,
-                  child:
-                      TransactionList(_userTransactions, _deleteTransaction)),
+              if (isLandscape)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Show chart!'),
+                    Switch(
+                        value: _showChart,
+                        onChanged: (value) {
+                          setState(() {
+                            _showChart = value;
+                          });
+                        }),
+                  ],
+                ),
+              if (!isLandscape)
+                Container(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.3,
+                    child: Chart(_recentTransactions)),
+              if (!isLandscape) transactionsList,
+              if (isLandscape)
+                _showChart
+                    ? Container(
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.7,
+                        child: Chart(_recentTransactions))
+                    : transactionsList
             ]),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
